@@ -1,5 +1,5 @@
 # keycloak-mail-otp-spi
-This is a service provider interface (SPI) of keycloak which can add one time pad (OTP) based two-factor authentication sending by email.
+This is a service provider interface (SPI) of keycloak which can add a one time pad (OTP) based two-factor authentication sending by email.
 ```mermaid
 sequenceDiagram
   keycloak ->> user: show login page
@@ -18,13 +18,22 @@ $ cp ./custom-themes/target/mail-auth-theme.jar [KEYCLOAK_HOME]/provider/
 ## Component structure
 ```mermaid
 classDiagram
-  class MailCodeAuthenticator {
+
+  class AuthenticatorFactory {
+    +create()  
+  }
+  
+  class Authenticator {
     +authenticate()
-    +action()
+    +action()  
   }
 
+class MailCodeAuthenticator {
+  -MAIL_ATTR
+  -logger
+}
+
   class MailCodeAuthenticatorFactory {
-    +create()
   }
 
   class MailClient {
@@ -40,6 +49,9 @@ classDiagram
   }
 
   class AuthCodeStore {
+    -userCredentialManager
+    -realm
+    -user
     +save()
     +getCode()
   }
@@ -52,4 +64,6 @@ classDiagram
   MailClientFactory --> MailClient
   Authenticator <|-- MailCodeAuthenticator
   AuthenticatorFactory <|-- MailCodeAuthenticatorFactory
+  MailClient --> EmailSenderProvider
+  
 ```
