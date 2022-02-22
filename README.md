@@ -14,6 +14,7 @@ $ mvn package
 $ cp ./custom-mail-auth/target/mail-authenticator.jar [KEYCLOAK_HOME]/provider/
 $ cp ./custom-themes/target/mail-auth-theme.jar [KEYCLOAK_HOME]/provider/
 ```
+To send OTP via e-mail, SMTP configuration in your realm should be set up. 
 
 ## Component structure
 ```mermaid
