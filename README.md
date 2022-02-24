@@ -2,9 +2,11 @@
 This is a service provider interface (SPI) of keycloak which can add a one time pad (OTP) based two-factor authentication sending by email.
 ```mermaid
 sequenceDiagram
+  actor user
+  participant keycloak
   keycloak ->> user: show login page
   user ->> keycloak: enter uesrname and password
-  keycloak ->> user's e-mail box: send authentication code
+  keycloak -->> user: send authentication code by e-mail
   user ->> keycloak: enter authentication code
 ```
 ## How to build and deploy
