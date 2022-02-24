@@ -6,8 +6,10 @@ sequenceDiagram
   participant keycloak
   keycloak ->> user: show login page
   user ->> keycloak: enter uesrname and password
+  keycloak ->> keycloak: verify username and password
   keycloak -->> user: send authentication code by e-mail
   user ->> keycloak: enter authentication code
+  keycloak ->> keycloak: verify authentication code
 ```
 ## How to build and deploy
 As described in [keycloak Doc](https://keycloak-documentation.openstandia.jp/master/ja_JP/server_development/index.html#_providers), this SPI can be build and deploy via below commands.
